@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:ital,wght@0,100;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,500;1,600;1,700;1,800&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,500;1,600;1,700;1,800&display=swap");
+
+
+    body {
+        @apply font-['Poppins']  text-gray-900 overflow-hidden;
+    }
+
+     .tab-navigation-wrapper {
+      @apply flex items-center fixed bottom-0 z-50 w-full bg-white border-t bg-gray-100 overflow-x-auto;
+    }
+
+    .tab-navigation-item {
+      @apply min-w-[100px] py-3 px-2 text-center text-sm border-r whitespace-nowrap border-gray-400;
+    }
+
+    .active-tab-navigation-item {
+      @apply border-b-2 border-b-black bg-white;
+    }
+
+    .sidebar li > a {
+      @apply text-white block py-1 text-3xl;
+    }
+
+    .center-align {
+      @apply flex items-center justify-center;
+    }
+
+    .fit-tags-to-design th {
+      @apply text-white
+    }
+
+    input {
+      @apply text-black;
+    }
+
+    .title {
+      @apply font-bold;
+    }
+
+    .inner-page-wrapper {
+      @apply p-5 py-10 ;
+    }
+
+
+    .checkbox {
+      @apply w-5 h-5 accent-green-500 ;
+    }
+    
+    .dropdown-wrapper {
+      @apply absolute z-50 mt-2  top-10 bg-white rounded shadow-md overflow-hidden;
+    }
+
+    .dropdown-item {
+      @apply block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:text-gray-500;
+    }
+
+    @layer components {
+
+        .container {
+            @apply lg:w-[1140px] md:w-[960px] px-5 mx-auto;
+        }
+
+        .btn {
+            @apply text-center whitespace-nowrap text-white rounded;
+        }
+
+        .form-control {
+            @apply w-full bg-white rounded resize-none appearance-none placeholder-gray-400 p-3 text-black border border-gray-200 tracking-wider text-sm focus:outline-0 ;
+        }
+
+
+        select.form-control {
+            @apply text-gray-400;
+        }
+
+
+        .form-group .comment {
+           @apply text-xs opacity-90 block;
+        }
+
+
+        .btn-sm {
+            @apply py-2 px-5;
+        }
+
+        .btn-lg {
+            @apply py-4 px-10;
+        }
+
+        .form-group {
+            @apply relative w-full;
+        }
+
+        .form-group i {
+            @apply absolute bottom-2 right-4;
+        }
+
+
+    .page-wrapper {
+      @apply h-[100vh] w-full overflow-y-auto overflow-hidden relative top-0;
+    }
+
+    .table-responsive {
+      @apply overflow-x-auto overflow-y-hidden max-w-full;
+    }
+
+    .table {
+      @apply min-w-full;
+    }
+
+    .table tbody td {
+      @apply py-4 px-3 whitespace-nowrap  text-sm ;
+    }
+
+    .table thead th {
+      @apply py-4 px-3 text-sm whitespace-nowrap capitalize ; 
+    }
+
+    .table input[type='checkbox'] {
+      @apply accent-green-500 text-white caret-white;
+    }
+
+    .table tbody i {
+      @apply text-xl bg-transparent;
+    }
+
+    .table thead {
+      @apply border-b
+    }
+
+   /* .table-striped tbody tr {
+      @apply odd:bg-white even:bg-gray-100
+    } */
+
+    .modal-wrapper {
+      @apply overflow-hidden z-[500] overflow-y-auto fixed top-0 h-[100vh] w-full left-0;
+    }
+
+    .modal-inner-wrapper {
+      @apply flex flex-col items-center sticky top-0 z-[200] justify-center min-h-[100vh] w-full p-5 after:bg-black after:opacity-70 after:z-[100] after:absolute after:top-0 after:right-0 after:left-0 after:min-h-full;
+    }
+
+    .modal-body {
+      @apply rounded-xl bg-white p-3 relative z-[300]; 
+    }
+
+    .error {
+      @apply text-red-500 text-sm ;
+    }
+
+    .format-1 {
+      @apply text-red-900 bg-gray-300;
+    }
+
+    .format-2 {
+      @apply text-purple-500 bg-pink-500;
+    }
+
+    .format-3 {
+      @apply text-yellow-500 bg-black;
+    }
+
+    .format-4 {
+      @apply text-brown-500 bg-yellow-400;
+    }
+
+    .format-5 {
+      @apply text-white bg-brown-400;
+    }
+
+    .format-6 {
+      @apply text-white bg-purple-400;
+    }
+
+    .format-7 {
+      @apply text-green-400 bg-green-300;
+    }
+
+    .logo-dark {
+      @apply w-[80px];
+      filter: invert(100%);
+    }
+
+    @media print {
+
+      body {
+        padding: 10px;
+      }
+
+      body * {
+
+        word-wrap: break-all !important;
+        white-space: normal !important;
+        
+      }
+
+
+    }
+
+    .header-btn {
+      @apply py-3 px-5 border-l  center-align;
+    }
+    
+  
+  }
+
+
+

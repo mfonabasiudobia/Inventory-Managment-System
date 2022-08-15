@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths" : {
+        "@config/*" : ["src/config/*"],
+        "@routes" : ["src/config/routes.js"]
+      }
+    }
+}
