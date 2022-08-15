@@ -23,7 +23,7 @@ const Login = () => {
 
         setContextData({...contextData, loading : true});
         axios({
-                url: "user/auth/login",
+                url: "http://testapp2.studyhub.ng/api/user/auth/login",
                 method: 'POST',
                 data : data
             })
