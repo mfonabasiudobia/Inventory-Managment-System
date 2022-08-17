@@ -48,7 +48,7 @@ const Sidebar = () => {
 
 
          <li>
-            <Link to="{{route('error_log')}}" title="Error Logs">
+            <Link to={routes.logs} title="Error Logs">
                <i class="las la-exclamation-circle"></i>
             </Link>
         </li>
@@ -73,13 +73,13 @@ const Sidebar = () => {
         </li>*/}
 
          <li>
-            <Link to="{{route('reports.type1')}}" title="Reports">
+            <Link to={routes.reports.type1} title="Reports">
                <i class="las la-file-invoice"></i>
             </Link>
         </li>
 
         <li>
-            <Link to="{{route('users')}}" title="User Management">
+            <Link to={routes.users.home} title="User Management">
                <i class="las la-users"></i>
             </Link>
         </li>

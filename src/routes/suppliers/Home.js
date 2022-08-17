@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import {  axios, toast } from "../../config/services";
 import { useInventoryContext } from "../../ContextApi";
@@ -19,9 +19,15 @@ const Suppliers = () => {
   const { contextData, setContextData } = useInventoryContext();
 
 const columns = [
+   {
+    field: 'sno',
+    headerName: 'SNO',
+    renderCell: (params) => params.id
+  },
   { field: 'id',
    headerName: 'ID',
-   width: 90 
+   width: 90,
+   hide : true
  },
   {
     field: 'number',
@@ -70,23 +76,15 @@ const columns = [
   const deleteUser = (row) => {
 
        setContextData({...contextData, loading : true});
-        axios({
-                url: "user/suppliers/" + row.id,
-                method: 'DELETE',
-            })
+        axios.delete("user/suppliers/" + row.id)
             .then((res) => {
-                 const {status, data } = res.data;
+                 const {status} = res.data;
                  if(status === 'success')
                      toast("Item has been deleted");
-
-                setRows((prevRows) => prevRows.filter((item) => item.id !== row.id));
-
+                    setRows((prevRows) => prevRows.filter((item) => item.id !== row.id));
             })
-            .catch((e) => {
-
-              toast("Cannot delete this item");
-
-            }).finally(() => setContextData({...contextData, loading : false}));
+            .catch((e) => toast("Cannot delete this item"))
+            .finally(() => setContextData({...contextData, loading : false}));
 
 }
 
@@ -96,10 +94,7 @@ const columns = [
 
          if(refresh){
            setContextData({...contextData, loading : true});
-            axios({
-              url : "user/suppliers",
-              method: 'GET',
-            })
+            axios.get("user/suppliers")
             .then((res) => {
                    const {status, data } = res.data;
                    if(status === 'success') setRows(data);
@@ -110,7 +105,6 @@ const columns = [
                 setContextData({...contextData, loading : false})
               })
           }          
-
 
   },[refresh])
 
@@ -136,8 +130,17 @@ const columns = [
       <div style={{ height: '80vh', width: '100%' }}>
         <DataGrid
           rows={rows}
-          columns={columns}
+          columns={columns.map((item) => Object.assign(item, { headerClassName : 'bg-green-500 text-white'}))}
           rowsPerPageOptions={[50, 100, 500, 1000]}
+          components={{ Toolbar: GridToolbar }}
+          disableColumnSelector
+          disableDensitySelector
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
           checkboxSelection
         />
       </div>
