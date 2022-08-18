@@ -41,7 +41,7 @@ const Sidebar = () => {
         </li>
 
         <li>
-            <Link to="{{route('notification.create')}}" title="Notification">
+            <Link to={routes.notifications} title="Notification">
                 <i class="las la-bell"></i>
             </Link>
         </li>

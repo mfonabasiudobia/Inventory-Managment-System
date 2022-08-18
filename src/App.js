@@ -6,6 +6,7 @@ import InventoryHome from "./routes/inventory/Home";
 import Suppliers from "./routes/suppliers/Home";
 import ErrorLog from "./routes/logs/Home";
 import Categories from "./routes/categories/Home";
+import Notification from "./routes/notifications/Home";
 import { ContextProvider } from "./ContextApi";
 import Loading from "./components/Loading";
 import { ToastContainer, toast } from 'react-toastify';
@@ -51,6 +52,7 @@ function App() {
             <Route path={routes.suppliers} element={<Suppliers />} />
             <Route path={routes.categories} element={<Categories />} />
             <Route path={routes.logs} element={<ErrorLog />} />
+            <Route path={routes.notifications} element={<Notification />} />
 
             <Route path="/reports" >
                   <Route index  path="type1" element={<Type1 />} />

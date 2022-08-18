@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import ReportLayout from "./layout";
-import {  yup, yupResolver, useForm, axios } from "../../config/services";
+import {  yup, yupResolver, useForm, axios, dateConfig } from "../../config/services";
 import { TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import { useInventoryContext } from "../../ContextApi";
 import Flatpickr from "react-flatpickr";
@@ -14,13 +14,6 @@ import Flatpickr from "react-flatpickr";
           expiry_date : yup.string(),
   })
 
- const config = {
-        enableTime: false,
-        dateFormat: "Y-m-d",
-        altInput: true,
-        disableMobile: true,
-        altFormat: "F j, Y"
-}
 
 const Type8 = () => {
 
@@ -121,7 +114,7 @@ const columns = [
                <Flatpickr
                     data-input
                     placeholder="Date"
-                    options={{...config, mode: "range" }}
+                    options={{...dateConfig, mode: "range" }}
                     onChange={(dates, dateStr, instance) => setValue('date', dateStr)}
                   />
 
@@ -136,7 +129,7 @@ const columns = [
                 <Flatpickr
                     data-input
                     placeholder="Expiry Date"
-                    options={{...config, dateFormat : 'm-y', altFormat : 'j-y' }}
+                    options={{...dateConfig, dateFormat : 'm-y', altFormat : 'j-y' }}
                     onChange={(dates, dateStr, instance) => setValue('expiry_date', dateStr)}
                 />
 

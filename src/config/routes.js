@@ -4,6 +4,7 @@ export default {
     'suppliers' : '/suppliers',
     'categories' : '/categories',
     'logs' : '/error-log',
+    'notifications' : '/notifications',
     'inventory' : {
         'home' : '/inventory',
     },
