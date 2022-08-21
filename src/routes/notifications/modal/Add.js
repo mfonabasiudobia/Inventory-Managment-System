@@ -1,8 +1,12 @@
 import React from 'react'
-import { yup, yupResolver, useForm, toast, axios, dateConfig } from "../../../config/services";
+import { yup, yupResolver, useForm, toast, axios, dateConfig, Controller, moment } from "../../../config/services";
 import { useInventoryContext } from "../../../ContextApi";
 import { TextField } from '@mui/material';
 import Flatpickr from "react-flatpickr";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const Add = ({ status, toggleAddModal, toggleRefresh }) => {
 
@@ -14,7 +18,7 @@ const Add = ({ status, toggleAddModal, toggleRefresh }) => {
           quantity_box : yup.string().required(),
      })
 
-     const { register, handleSubmit, setError, setValue, reset, formState: { errors } } = useForm({
+     const { register, control, handleSubmit, setError, setValue, reset, formState: { errors } } = useForm({
         resolver : yupResolver(schema)
       });
      const { contextData, setContextData } = useInventoryContext();
@@ -22,7 +26,7 @@ const Add = ({ status, toggleAddModal, toggleRefresh }) => {
 	const handleForm = async (data, e) => {
 
         setContextData({...contextData, loading : true});
-        axios.post('user/notifications', data)
+        axios.post('user/notifications', {...data, expiry_date : moment(data.expiry_date).toISOString()})
             .then((res) => {
                 
                  const {status, data } = res.data;
@@ -75,7 +79,7 @@ const Add = ({ status, toggleAddModal, toggleRefresh }) => {
                         />
 
 
-                <div>
+                {/*<div>
                     <Flatpickr
                         data-input
                         placeholder="Expiry Date"
@@ -83,7 +87,24 @@ const Add = ({ status, toggleAddModal, toggleRefresh }) => {
                         onChange={(dates, dateStr, instance) => setValue('expiry_date', dateStr)}
                     />
                     {errors.expiry_date && <span className='error'>{errors.expiry_date?.message}</span>}
-                </div>
+                </div>*/}
+
+                <Controller
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DatePicker
+                            label="Expiry Date"
+                            onChange={onChange}
+                            value={value}
+                            views={["year", "month"]}
+                            inputFormat="MM-yy"
+                            renderInput={(params) => <TextField {...params} helperText={errors.expiry_date?.message} />}
+                          />
+                         </LocalizationProvider>
+                        )}
+                        name="expiry_date"
+                />
 
                  <TextField 
                             error={errors.quantity_pcs} 

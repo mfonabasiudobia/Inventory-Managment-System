@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import ReportLayout from "./layout";
-import {  axios } from "../../config/services";
+import {  axios, moment } from "../../config/services";
 import { useInventoryContext } from "../../ContextApi";
 
 
 const Type2 = () => {
 
   const [rows, setRows] = useState([]);
-  const { contextData, setContextData } = useInventoryContext();
+  const { contextData, setContextData, filterBranch } = useInventoryContext();
 
 const columns = [
   {
@@ -83,7 +83,7 @@ const columns = [
         <section class="p-4 space-y-5">
           <div style={{ height: '95vh', width: '100%' }}>
             <DataGrid
-              rows={rows.map((item, index) => Object.assign(item, { sno : index + 1}))}
+              rows={filterBranch(rows).map((item, index) => Object.assign(item, { sno : index + 1}))}
               columns={columns.map((item) => Object.assign(item, { headerClassName : 'bg-black text-white'}))}
               rowsPerPageOptions={[50, 100, 500, 1000]}
               getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'text-black bg-green-dark' : 'text-black bg-green-light'}

@@ -44,7 +44,7 @@ const columns = [
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
-            width: 100,
+            flex: 1,
             cellClassName: 'actions',
             getActions: (row) => {
                 return [

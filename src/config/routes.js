@@ -5,8 +5,13 @@ export default {
     'categories' : '/categories',
     'logs' : '/error-log',
     'notifications' : '/notifications',
+    'settings' : '/settings',
+    'profile' : '/profile',
+    'addNewItem' : '/add-new-item',
     'inventory' : {
         'home' : '/inventory',
+        'archiveIn' : '/inventory/archive-in',
+        'archiveOut' : '/inventory/archive-out'
     },
     'reports' : {
         'type1' : '/reports/type1',

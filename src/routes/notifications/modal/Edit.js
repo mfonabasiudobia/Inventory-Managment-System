@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { yup, yupResolver, useForm, toast, axios, dateConfig, Controller } from "../../../config/services";
+import { yup, yupResolver, useForm, toast, axios, dateConfig, Controller, moment } from "../../../config/services";
 import { useInventoryContext } from "../../../ContextApi";
 import { TextField } from '@mui/material';
 import Flatpickr from "react-flatpickr";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import DatePicker from "@mui/lab/DatePicker";
 
 const Edit = ({ status, toggleEditModal, toggleRefresh }) => {
 
 	const schema = yup.object().shape({
           barcode : yup.string().required(),
           description : yup.string().required(),
-          // expiry_date : yup.string().required(),
+          expiry_date : yup.string().required(),
           quantity_pcs : yup.string().required(),
           quantity_box : yup.string().required(),
      })
@@ -23,22 +22,20 @@ const Edit = ({ status, toggleEditModal, toggleRefresh }) => {
       });
 
      const { contextData, setContextData } = useInventoryContext();
-     const [value, setValue] = useState('');
 
      useEffect(() => {
      	const data = contextData.data;
-     	reset({ barcode : data.barcode, description : data.description, quantity_pcs : data.quantity_pcs, quantity_box : data.quantity_box });
-        // setValue(data.expiry_date);
+     	reset({ barcode : data.barcode, description : data.description, expiry_date : data.expiry_date, quantity_pcs : data.quantity_pcs, quantity_box : data.quantity_box });
+
      },[status])
 
 	const handleForm = async (data, e) => {
-        // alert(JSON.stringify({...data, expiry_date : value }))
-        // return;
+
         setContextData({...contextData, loading : true});
         axios({
                 url: "user/notifications/" + contextData.data.id,
                 method: 'PUT',
-                data : data
+                data : {...data, expiry_date : moment(data.expiry_date).toISOString()}
             })
             .then((res) => {
                  const {status, data } = res.data;
@@ -55,10 +52,8 @@ const Edit = ({ status, toggleEditModal, toggleRefresh }) => {
                 for (const key in data) {
                     setError(key, {type : 'custom', message : data[key] });
                 }
-        
             })
             .finally(() => setContextData({...contextData, loading : false}));
-
     }
 
 	return (
@@ -89,20 +84,8 @@ const Edit = ({ status, toggleEditModal, toggleRefresh }) => {
                             type="text" 
                             fullWidth  
                         />
-     
-                
-              {/*  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <DatePicker
-                            label="Expiry Date"
-                            onChange={(newValue) => setValue(newValue)}
-                            value={value}
-                            views={["year", "month"]}
-                            inputFormat="MM-yy"
-                            renderInput={(params) => <TextField {...params} helperText={errors.expiry_date?.message} />}
-                          />
-                </LocalizationProvider>
-*/}
-                  {/*<Controller
+
+                  <Controller
                         control={control}
                         render={({ field: { onChange, value } }) => (
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -117,7 +100,7 @@ const Edit = ({ status, toggleEditModal, toggleRefresh }) => {
                          </LocalizationProvider>
                         )}
                         name="expiry_date"
-                      />*/}
+                      />
 
                  <TextField 
                             error={errors.quantity_pcs} 

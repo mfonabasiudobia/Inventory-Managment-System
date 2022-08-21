@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid, GridActionsCellItem, GridToolbar   } from '@mui/x-data-grid';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { DataGrid, GridToolbar, useGridApiContext, useGridApiRef, GridActionsCellItem   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import {  axios, toast } from "../../config/services";
 import { useInventoryContext } from "../../ContextApi";
@@ -8,8 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddModal from "./modal/Add";
 import EditModal from "./modal/Edit";
 
-
-
 const Suppliers = () => {
 
   const [rows, setRows] = useState([]);
@@ -17,6 +15,7 @@ const Suppliers = () => {
   const [toggleEditModal, setToggleEditModal] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const { contextData, setContextData } = useInventoryContext();
+
 
 const columns = [
    {
@@ -45,7 +44,7 @@ const columns = [
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
-            width: 100,
+            flex: 1,
             cellClassName: 'actions',
             getActions: (row) => {
                 return [
@@ -121,9 +120,9 @@ const columns = [
       toggleEditModal={() => setToggleEditModal(!toggleEditModal)} 
       toggleRefresh={() => setRefresh(true)} />
 
-    <section class="p-4 space-y-5">
-           <button class="hover:text-green-500 bg-gray-50 p-2" onClick={() => setToggleAddModal(!toggleAddModal)}>
-                    <i class="las la-plus"></i>
+    <section className="p-4 space-y-5">
+           <button className="hover:text-green-500 bg-gray-50 p-2" onClick={() => setToggleAddModal(!toggleAddModal)}>
+                    <i className="las la-plus"></i>
                     <span>ADD</span>
             </button>
 
@@ -132,15 +131,15 @@ const columns = [
           rows={rows}
           columns={columns.map((item) => Object.assign(item, { headerClassName : 'bg-green-500 text-white'}))}
           rowsPerPageOptions={[50, 100, 500, 1000]}
-          components={{ Toolbar: GridToolbar }}
           disableColumnSelector
           disableDensitySelector
-          componentsProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 },
-            },
-          }}
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{ toolbar: { 
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+           } 
+         }}
+          disableSelectionOnClick
           checkboxSelection
         />
       </div>

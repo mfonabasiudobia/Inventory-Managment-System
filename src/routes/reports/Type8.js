@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import ReportLayout from "./layout";
-import {  yup, yupResolver, useForm, axios, dateConfig } from "../../config/services";
+import {  yup, yupResolver, useForm, axios, dateConfig, moment } from "../../config/services";
 import { TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import { useInventoryContext } from "../../ContextApi";
 import Flatpickr from "react-flatpickr";
@@ -19,7 +19,7 @@ const Type8 = () => {
 
   const [rows, setRows] = useState([]);
   const [statistics, setStatistics] = useState([]);
-  const { contextData, setContextData } = useInventoryContext();
+  const { contextData, setContextData, filterBranch } = useInventoryContext();
 
 const { register, handleSubmit, setError, reset, setValue, formState: { errors } } = useForm({
   resolver : yupResolver(schema)
@@ -62,7 +62,8 @@ const columns = [
     field: 'expiry_date',
     headerName: 'Expiry Date',
     flex: 1,
-    editable: false
+    editable: false,
+    renderCell: ({ row }) => row.expiry_date == "-" ? "-" : moment(row.expiry_date).format("MM-YY"),
   },
   {
     field: 'total_quantity_pc',
@@ -152,7 +153,7 @@ const columns = [
 
           <div style={{ height: '70vh', width: '100%' }}>
             <DataGrid
-              rows={rows.map((item, index) => Object.assign(item, { sno : index + 1}))}
+              rows={filterBranch(rows).map((item, index) => Object.assign(item, { sno : index + 1}))}
               columns={columns.map((item) => Object.assign(item, { headerClassName : 'bg-black text-white'}))}
               rowsPerPageOptions={[50, 100, 500, 1000]}
               getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'text-black bg-green-dark' : 'text-black bg-green-light'}

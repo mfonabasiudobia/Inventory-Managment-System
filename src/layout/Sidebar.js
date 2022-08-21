@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { routes } from "../config/services";
+import { useDetectClickOutside } from 'react-detect-click-outside';
 
 const Sidebar = () => {
+
+    const [ archiveDropdown, setArchiveDropDown ] = useState(false);
+
+    const archiveRef = useDetectClickOutside({ onTriggered: () => setArchiveDropDown(false) });
+
+
 	return (
 		<section class="h-screen bg-black p-4 space-y-5">
     <header>
@@ -23,7 +30,7 @@ const Sidebar = () => {
         </li>
 
         <li>
-            <Link to={routes.suppliers} title="New Items">
+            <Link to={routes.addNewItem} title="New Items">
                <i class="las la-plus"></i>
             </Link>
         </li>
@@ -53,24 +60,24 @@ const Sidebar = () => {
             </Link>
         </li>
 
-
-          {/*<li class="relative" x-data="{show : false}">
-            <Link to="javascript:void(0)" title="Archive" x-on:click="show = !show">
-               <i class="las la-archive"></i>
-            </Link>
-            <div x-cloak class="absolute bg-white shadow-xl top-0 z-50 -right-[150px] rounded p-2 whitespace-nowrap" x-show="show" @click.away="show = false">
+        <li class="relative">
+            <button  title="Archive" ref={archiveRef} onClick={() => setArchiveDropDown(!archiveDropdown) }>
+               <i class="las la-archive text-3xl text-white"></i>
+            </button>
+            <div 
+            class={`absolute bg-white shadow-xl top-0 z-50 -right-[150px] rounded p-2 whitespace-nowrap ${!archiveDropdown && 'hidden'}`}>
                 <div>
-                    <Link to="{{route('archive_in')}}" title="Error Logs" class="block text-black text-sm py-2 hover:bg-gray-50">
+                    <Link to={routes.inventory.archiveIn} title="Error Logs" class="block text-black text-sm py-2 hover:bg-gray-50">
                        Inventory Archive
                     </Link>
                 </div>
                  <div>
-                    <Link to="{{route('orders.internal.archives')}}" title="Error Logs" class="block text-black text-sm py-2 hover:bg-gray-50">
+                    <Link to={routes.inventory.archiveIn} title="Error Logs" class="block text-black text-sm py-2 hover:bg-gray-50">
                        Order Archive
                     </Link>
                 </div>
             </div>
-        </li>*/}
+        </li>
 
          <li>
             <Link to={routes.reports.type1} title="Reports">
@@ -85,7 +92,7 @@ const Sidebar = () => {
         </li>
 
         <li>
-            <Link to="{{route('settings')}}" title="Settings">
+            <Link to={routes.settings} title="Settings">
                 <i class="las la-cog"></i>
             </Link>
         </li>

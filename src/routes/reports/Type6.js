@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import ReportLayout from "./layout";
-import {  yup, yupResolver, useForm, axios } from "../../config/services";
+import {  yup, yupResolver, useForm, axios, moment } from "../../config/services";
 import { TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import { useInventoryContext } from "../../ContextApi";
 
@@ -57,7 +57,8 @@ const columns = [
     field: 'expiry_date',
     headerName: 'Expiry Date',
     flex: 1,
-    editable: false
+    editable: false,
+    renderCell: ({ row }) => row.expiry_date == "-" ? "-" : moment(row.expiry_date).format("MM-YY"),
   },
   {
     field: 'quantity_pcs',

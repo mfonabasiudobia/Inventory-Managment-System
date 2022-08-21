@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
 import ReportLayout from "./layout";
-import {  axios } from "../../config/services";
+import {  axios, moment } from "../../config/services";
 import { useInventoryContext } from "../../ContextApi";
 
 
@@ -48,7 +48,8 @@ const columns = [
     field: 'status_formatted',
     headerName: 'Status',
     minWidth: 150,
-    editable: false
+    editable: false,
+    renderCell: ({ row }) => row.expiry_date == "-" ? "-" : moment(row.expiry_date).format("MM-YY"),
   },
   {
     field: 'total_quantity_pcs_formatted',

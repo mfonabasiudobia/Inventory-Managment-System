@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridActionsCellItem, GridToolbar   } from '@mui/x-data-grid';
 import Layout from "../../layout";
-import {  axios, toast } from "../../config/services";
+import {  axios, toast, moment } from "../../config/services";
 import { useInventoryContext } from "../../ContextApi";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddModal from "./modal/Add";
 import EditModal from "./modal/Edit";
-
-
 
 const Notifications = () => {
 
@@ -46,6 +44,7 @@ const columns = [
     headerName: 'Expiry Date',
     width: 150,
     editable: true,
+    renderCell: ({ row }) => moment(row.expiry_date).format("MM-YY")
   },
   {
     field: 'quantity_pcs',

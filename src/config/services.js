@@ -6,7 +6,7 @@ import Cookie from "js-cookie";
 import routes from "./routes";
 import axios from "./axios";
 import { toast } from 'react-toastify';
-
+import moment from 'moment';
 
  const dateConfig = {
         enableTime: false,
@@ -16,4 +16,4 @@ import { toast } from 'react-toastify';
         altFormat: "F j, Y"
 }
 
-export { yup, yupResolver, useWatch, useForm, Swal, Cookie, axios, routes, toast, dateConfig, Controller };
+export { yup, yupResolver, useWatch, useForm, Swal, Cookie, axios, routes, toast, dateConfig, Controller, moment };
