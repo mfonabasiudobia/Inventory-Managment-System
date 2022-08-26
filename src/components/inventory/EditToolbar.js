@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 const EditToolbar = (props) => {
     const apiRef = useGridApiContext();
-    const [isClicked, setIsClicked] = useState(false)
+    const [isClicked, setIsClicked] = useState(false);
+
     const handleAddNewRowClick = () => {
         const id = 'new-column';
         
@@ -17,8 +18,7 @@ const EditToolbar = (props) => {
                     rowIndex: apiRef.current.getRowsCount() - 1,
                 });
                 // apiRef.current.setCellFocus(id, field);
-            }, 500);
-        
+            });
     }
 
     useEffect(() => {

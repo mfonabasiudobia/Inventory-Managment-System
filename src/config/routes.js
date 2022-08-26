@@ -10,6 +10,8 @@ export default {
     'addNewItem' : '/add-new-item',
     'inventory' : {
         'home' : '/inventory',
+        'inventoryIn' : '/inventory-in',
+        'inventoryOut' : '/inventory-out',
         'archiveIn' : '/inventory/archive-in',
         'archiveOut' : '/inventory/archive-out'
     },

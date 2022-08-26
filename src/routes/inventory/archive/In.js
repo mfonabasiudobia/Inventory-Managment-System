@@ -137,8 +137,6 @@ const columns = [
 ];
 
 
-
-
   const saveOnClick = async (row) => {
         try{
             openLoader();

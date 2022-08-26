@@ -5,6 +5,8 @@ import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./routes/Login";
 import InventoryHome from "./routes/inventory/Home";
 import InventoryArchiveIn from "./routes/inventory/archive/In";
+import InventoryIn from "./routes/inventory/In";
+import InventoryOut from "./routes/inventory/Out";
 import InventoryArchiveOut from "./routes/inventory/archive/Out";
 import Suppliers from "./routes/suppliers/Home";
 import ErrorLog from "./routes/logs/Home";
@@ -74,6 +76,8 @@ function App() {
 
   },[]);
 
+  
+
   return (
     <ContextProvider data={{ suppliers, categories, branches, notifications, user }}>
       <ToastContainer />
@@ -81,6 +85,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
+
+
+             <Route path={routes.inventory.inventoryIn} element={<InventoryIn />} />
+             <Route path={routes.inventory.inventoryOut} element={<InventoryOut />} />
+
               <Route path="/inventory" >
                   <Route index element={<InventoryHome />} />
                   <Route path="archive-in" element={<InventoryArchiveIn />} />

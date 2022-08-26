@@ -18,7 +18,7 @@ const Sidebar = () => {
 
     <ul class="sidebar">
         <li>
-            <Link to="{{route('inventory')}}" title="Inventory">
+            <Link to={routes.inventory.inventoryIn} title="Inventory">
                 <i class="las la-store"></i>
             </Link>
         </li>
